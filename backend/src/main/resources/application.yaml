@@ -1,0 +1,24 @@
+logging:
+  level:
+    root: INFO
+    org.quartz: WARN
+    negrosa.backend: INFO
+server:
+  port: 8000
+  error:
+    include-stacktrace: always
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 1GB
+references:
+  storage:
+    images:
+      path: ${REFERENCES_STORAGE_IMAGES:storage/references/}
+      extension: ${REFERENCES_STORAGE_IMAGES_EXTENSION:png}
+    temporary:
+      path: ${REFERENCES_STORAGE_TEMPORARY:storage/temporary/}
+      prefix: ${REFERENCES_STORAGE_TEMPORARY_PREFIX:ref_}
+  extension: ${REFERENCES_EXTENSION:dxf}
+  
