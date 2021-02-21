@@ -1,0 +1,6 @@
+FROM debian
+
+RUN apt-get update && \
+	apt-get install -y zsh git wget curl screen nginx screen nano
+
+RUN sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

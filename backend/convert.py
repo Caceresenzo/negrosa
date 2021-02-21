@@ -6,7 +6,6 @@ import sys
 import ezdxf
 from ezdxf.addons.drawing import RenderContext, Frontend
 from ezdxf.addons.drawing.matplotlib import MatplotlibBackend
-import wx
 
 import matplotlib.pyplot as plt
 
