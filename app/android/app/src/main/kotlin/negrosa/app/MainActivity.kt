@@ -1,4 +1,4 @@
-package com.example.negrosa
+package negrosa.app
 
 import io.flutter.embedding.android.FlutterActivity
 
