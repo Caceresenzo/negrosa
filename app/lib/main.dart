@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Negro S.A.',
-      darkTheme: appTheme(),
-      themeMode: ThemeMode.dark,
+      theme: appTheme(),
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
