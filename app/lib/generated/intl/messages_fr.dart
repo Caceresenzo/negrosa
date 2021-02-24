@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "deletingUpdateAction" : MessageLookupByLibrary.simpleMessage("Suppression"),
     "doneUpdateAction" : MessageLookupByLibrary.simpleMessage("Terminé"),
     "downloadingUpdateAction" : MessageLookupByLibrary.simpleMessage("Téléchargement"),
-    "exactReference" : MessageLookupByLibrary.simpleMessage("Réferences Exacte"),
+    "exactReference" : MessageLookupByLibrary.simpleMessage("Réference Exacte"),
     "fetchingUpdateAction" : MessageLookupByLibrary.simpleMessage("Récuperation de la liste"),
     "negrosa" : MessageLookupByLibrary.simpleMessage("Negro SA"),
     "references" : MessageLookupByLibrary.simpleMessage("Réferences"),
