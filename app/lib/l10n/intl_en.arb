@@ -1,0 +1,26 @@
+{
+	"helloWorld": "Hello World!",
+	"@helloWorld": {
+		"description": "The conventional newborn programmer greeting"
+	},
+	"references": "References",
+	"@references": {},
+	"negrosa": "Negro SA",
+	"settings": "Settings",
+	"@settings": {},
+	"serverAddressSettings": "Server Address",
+	"@serverAddressSettings": {},
+	"maxHistorySizeSettings": "Max History Size",
+	"@maxHistorySizeSettings": {},
+	"unspecified": "<unspecified>",
+	"@unspecified": {},
+	"fetchingUpdateAction": "Fetching",
+	"@fetchingUpdateAction": {},
+	"deletingUpdateAction": "Deleting",
+	"@deletingUpdateAction": {},
+	"downloadingUpdateAction": "Downloading",
+	"@downloadingUpdateAction": {},
+	"doneUpdateAction": "Done",
+	"@doneUpdateAction": {}
+	
+}
