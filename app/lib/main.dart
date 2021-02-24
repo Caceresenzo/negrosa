@@ -24,6 +24,10 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('fr', ''),
+      ],
       initialRoute: "/splash",
       routes: appRoutes(),
     );

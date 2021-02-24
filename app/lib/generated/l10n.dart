@@ -55,6 +55,16 @@ class S {
     );
   }
 
+  /// `Exact Reference`
+  String get exactReference {
+    return Intl.message(
+      'Exact Reference',
+      name: 'exactReference',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Negro SA`
   String get negrosa {
     return Intl.message(
@@ -152,6 +162,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'fr'),
     ];
   }
 

@@ -183,7 +183,7 @@ class InputZoneWidget extends StatelessWidget {
         child: TextField(
           textCapitalization: TextCapitalization.characters,
           decoration: new InputDecoration(
-            hintText: 'Exact Reference',
+            hintText: S.of(context).exactReference,
           ),
           onSubmitted: (value) => openViewer(context, value.toUpperCase()),
         ),

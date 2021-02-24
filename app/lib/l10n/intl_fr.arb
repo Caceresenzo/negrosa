@@ -1,0 +1,22 @@
+{
+	"references": "Réferences",
+	"@references": {},
+	"exactReference": "Réferences Exacte",
+	"@exactReference": {},
+	"negrosa": "Negro SA",
+	"settings": "Paramètres",
+	"@settings": {},
+	"serverAddressSettings": "Adresse du Serveur",
+	"@serverAddressSettings": {},
+	"unspecified": "<non specifiée>",
+	"@unspecified": {},
+	"fetchingUpdateAction": "Récuperation de la liste",
+	"@fetchingUpdateAction": {},
+	"deletingUpdateAction": "Suppression",
+	"@deletingUpdateAction": {},
+	"downloadingUpdateAction": "Téléchargement",
+	"@downloadingUpdateAction": {},
+	"doneUpdateAction": "Terminé",
+	"@doneUpdateAction": {}
+	
+}

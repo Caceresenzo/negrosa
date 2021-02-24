@@ -5,6 +5,8 @@
 	},
 	"references": "References",
 	"@references": {},
+	"exactReference": "Exact Reference",
+	"@exactReference": {},
 	"negrosa": "Negro SA",
 	"settings": "Settings",
 	"@settings": {},

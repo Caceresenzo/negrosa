@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "deletingUpdateAction" : MessageLookupByLibrary.simpleMessage("Deleting"),
     "doneUpdateAction" : MessageLookupByLibrary.simpleMessage("Done"),
     "downloadingUpdateAction" : MessageLookupByLibrary.simpleMessage("Downloading"),
+    "exactReference" : MessageLookupByLibrary.simpleMessage("Exact Reference"),
     "fetchingUpdateAction" : MessageLookupByLibrary.simpleMessage("Fetching"),
     "helloWorld" : MessageLookupByLibrary.simpleMessage("Hello World!"),
     "maxHistorySizeSettings" : MessageLookupByLibrary.simpleMessage("Max History Size"),
