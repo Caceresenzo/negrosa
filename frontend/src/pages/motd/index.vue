@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-navigation-drawer app clipped style="left: 256px">
+		<v-navigation-drawer v-model="drawer" disable-resize-watcher app clipped style="left: 256px">
 			<v-list dense nav>
 				<v-list-item>
 					<v-list-item-content>
@@ -20,9 +20,9 @@
 					<v-list-item-content>
 						<v-list-item-title>{{ presentation.name }}</v-list-item-title>
 						<v-list-item-subtitle style="height: 18px">
-              {{ new Date(presentation.createdAt).toLocaleString() }}
-              <v-chip v-if="presentation.active" x-small color="success">active</v-chip>
-            </v-list-item-subtitle>
+							{{ new Date(presentation.createdAt).toLocaleString() }}
+							<v-chip v-if="presentation.active" x-small color="success">active</v-chip>
+						</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>
@@ -39,11 +39,19 @@ export default {
 		loading: false,
 		presentations: [],
 	}),
-  computed: {
-    presentationId() {
+	computed: {
+		presentationId() {
 			return this.$route.params.id;
-    }
-  },
+		},
+		drawer: {
+			get() {
+				return this.$store.state.ui.drawer;
+			},
+      set(val) {
+        val;
+      }
+		},
+	},
 	methods: {
 		async fetch() {
 			if (this.loading) {

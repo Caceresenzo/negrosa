@@ -12,6 +12,17 @@ export default new Vuex.Store({
 	actions: {
 	},
 	modules: {
+    ui: {
+			namespaced: true,
+			state: {
+				drawer: true,
+        enabled: true
+			},
+			mutations: {
+				setDrawer: (state, val) => state.drawer = val,
+				setEnabled: (state, val) => state.enabled = val,
+      }
+    },
 		references: {
 			namespaced: true,
 			state: {

@@ -16,6 +16,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "references" */ '../pages/references/index.vue')
   },
   {
+    path: '/motd/active',
+    name: 'Active Motd',
+    component: () => import(/* webpackChunkName: "motd" */ '../pages/motd/active.vue'),
+  },
+  {
     path: '/motd',
     name: 'Motd',
     component: () => import(/* webpackChunkName: "motd" */ '../pages/motd/index.vue'),

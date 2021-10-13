@@ -1,7 +1,7 @@
 <template>
 	<v-app id="app">
 		<v-app-bar app clipped-left>
-			<v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+			<v-app-bar-nav-icon v-if="enabled" @click="drawer = !drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title>Negro SA</v-toolbar-title>
 		</v-app-bar>
 		<v-navigation-drawer v-model="drawer" app clipped>
@@ -22,7 +22,6 @@
 <script>
 export default {
 	data: () => ({
-		drawer: true,
 		items: [
 			{
 				key: "home",
@@ -51,8 +50,22 @@ export default {
 			},
 		],
 	}),
+	computed: {
+		drawer: {
+			get() {
+				return this.$store.state.ui.drawer;
+			},
+			set(val) {
+				this.$store.commit("ui/setDrawer", val);
+			},
+		},
+		enabled() {
+			return this.$store.state.ui.enabled;
+		},
+	},
 	created() {
 		this.$vuetify.application.register = function (uid, location, size) {
+			// console.log("register", [...arguments]);
 			this.application[location][uid] = size;
 			this.update(location);
 		};
