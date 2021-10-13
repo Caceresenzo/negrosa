@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../pages/index.vue'
 
 Vue.use(VueRouter)
 
@@ -13,17 +13,17 @@ const routes = [
   {
     path: '/references',
     name: 'References',
-    component: () => import(/* webpackChunkName: "references" */ '../views/references/ReferencesPage.vue')
+    component: () => import(/* webpackChunkName: "references" */ '../pages/references/index.vue')
   },
   {
     path: '/settings',
     name: 'Settings',
-    component: () => import(/* webpackChunkName: "settings" */ '../views/Settings.vue')
+    component: () => import(/* webpackChunkName: "settings" */ '../pages/settings.vue')
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../pages/about.vue')
   },
 ]
 

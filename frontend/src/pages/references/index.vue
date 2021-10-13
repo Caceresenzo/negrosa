@@ -56,15 +56,15 @@
 			</v-col>
 		</v-row>
 
-		<import-dialog ref="importDialog" @uploaded="refresh" />
+		<reference-dialog-import ref="importDialog" @uploaded="refresh" />
 	</v-container>
 </template>
 
 <script>
-import ImportDialog from "./dialog/ImportDialog.vue";
+import ReferenceDialogImport from "../../components/reference/dialog/Import.vue";
 
 export default {
-	components: { ImportDialog },
+	components: { ReferenceDialogImport },
 	computed: {
 		loading() {
 			return this.$store.state.references.loading;
@@ -104,13 +104,13 @@ export default {
 	},
 };
 </script>
-<style >
-	.v-card--reveal {
-		align-items: center;
-		bottom: 0;
-		justify-content: center;
-		opacity: 0.5;
-		position: absolute;
-		width: 100%;
-	}
+<style>
+.v-card--reveal {
+	align-items: center;
+	bottom: 0;
+	justify-content: center;
+	opacity: 0.5;
+	position: absolute;
+	width: 100%;
+}
 </style>
