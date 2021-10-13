@@ -32,6 +32,8 @@ import negrosa.motd.service.SlideService;
 @Slf4j
 public class SlideServiceImpl implements SlideService {
 	
+	public static final int SCALING = 4;
+	
 	public static final String ENTITY = "slide";
 	
 	@Autowired
@@ -49,9 +51,13 @@ public class SlideServiceImpl implements SlideService {
 		
 		try (XMLSlideShow slideShow = new XMLSlideShow(input)) {
 			Dimension dimention = slideShow.getPageSize();
+			dimention.setSize(dimention.getWidth() * SCALING, dimention.getHeight() * SCALING);
 			
-			BufferedImage img = new BufferedImage((int) dimention.getWidth(), (int) dimention.getHeight(), BufferedImage.TYPE_INT_RGB);
-			Graphics2D graphics = img.createGraphics();
+			slideShow.setPageSize(dimention);
+			
+			BufferedImage bufferedImage = new BufferedImage((int) dimention.getWidth(), (int) dimention.getHeight(), BufferedImage.TYPE_INT_RGB);
+			Graphics2D graphics = bufferedImage.createGraphics();
+			graphics.scale(SCALING, SCALING);
 			
 			List<XSLFSlide> xslfSlides = slideShow.getSlides();
 			
@@ -66,7 +72,7 @@ public class SlideServiceImpl implements SlideService {
 				
 				String file = presentationStoragePath.resolve(String.valueOf(position) + ".png").toString();
 				try (FileOutputStream out = new FileOutputStream(file)) {
-					ImageIO.write(img, "png", out);
+					ImageIO.write(bufferedImage, "png", out);
 				}
 				
 				slides.add(new Slide()
