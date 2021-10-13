@@ -1,82 +1,56 @@
 <template>
 	<v-main>
-		<v-container v-if="!connected" fill-height fluid>
+		<v-container v-if="!presentation" fill-height fluid>
 			<v-row class="fill-height" align="center">
 				<v-col align="center">
-          <h2>connecting...</h2>
-					<v-progress-circular indeterminate />
+					<template v-if="loading">
+						<h2>loading...</h2>
+						<v-progress-circular indeterminate />
+					</template>
+					<template v-else>
+						<h2>no active presentation</h2>
+					</template>
 				</v-col>
 			</v-row>
+			{{ presentation }}
+			{{ slides }}
 		</v-container>
+		<presentation-slide-show v-else :presentation="presentation" :slides="slides" />
 	</v-main>
 </template>
 
 <script>
+import PresentationSlideShow from "../../components/presentation/SlideShow.vue";
+
 export default {
+	components: {
+		PresentationSlideShow,
+	},
 	data: () => ({
+		drawerAtOpen: null,
 		loading: false,
 		presentation: null,
-		drawerAtOpen: null,
-		eventSource: null,
-		active: null,
-		activeId: null,
-		connected: false,
+		slides: [],
 	}),
 	methods: {
-		createSource() {
-			const source = new EventSource("/api/motd/presentations/events", { withCredentials: true });
-
-			source.addEventListener("notify_presentation_update", (event) => {
-				console.log(event.data);
-
-				this.activeId = event.data;
-			});
-
-			source.onopen = () => {
-				this.connected = true;
-			};
-
-			source.onerror = (error) => {
-				this.connected = false;
-				console.log(error);
-
-				// setTimeout(() => this.createSource(), 1000);
-			};
-
-			this.eventSource = source;
-		},
 		async fetch() {
-			const { activeId } = this;
+			if (this.loading) {
+				return;
+			}
 
 			this.loading = true;
 
-			const id = activeId || "active";
 			try {
-				const presentation = (await this.$http.get(`/motd/presentations/${id}`)).data;
-
-				if (this.activeId != activeId) {
-					return;
-				}
+				const presentation = (await this.$http.get("/motd/presentations/active")).data;
+				const slides = (await this.$http.get(`/motd/presentations/${presentation.id}/slides`)).data;
 
 				this.presentation = presentation;
+				this.slides = slides;
 			} catch (error) {
-				if (this.activeId != activeId) {
-					return;
-				}
-
 				console.log(error);
 			}
 
 			this.loading = false;
-		},
-	},
-	watch: {
-		activeId(val) {
-			if (val == "-1") {
-				this.presentation = null;
-			} else {
-				this.fetch();
-			}
 		},
 	},
 	mounted() {
@@ -85,12 +59,9 @@ export default {
 		this.$store.commit("ui/setDrawer", false);
 		this.$store.commit("ui/setEnabled", false);
 
-		this.createSource();
 		this.fetch();
 	},
 	destroyed() {
-		this.eventSource.close();
-
 		this.$store.commit("ui/setDrawer", this.drawerAtOpen);
 		this.$store.commit("ui/setEnabled", true);
 	},

@@ -4,7 +4,7 @@
 			<v-app-bar-nav-icon v-if="enabled" @click="drawer = !drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title>Negro SA</v-toolbar-title>
 		</v-app-bar>
-		<v-navigation-drawer v-model="drawer" app clipped>
+		<v-navigation-drawer v-model="drawer" app clipped :disable-resize-watcher="!enabled">
 			<v-list dense nav>
 				<v-list-item v-for="item in items" :key="item.key" link :to="item.to">
 					<v-list-item-icon>
