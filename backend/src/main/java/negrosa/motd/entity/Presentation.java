@@ -34,6 +34,9 @@ public class Presentation {
 	private String name;
 	
 	@Column(nullable = false)
+	private boolean active;
+	
+	@Column(nullable = false)
 	private double slideDuration = 1.0;
 	
 	@CreationTimestamp
