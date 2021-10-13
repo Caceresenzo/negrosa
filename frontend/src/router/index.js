@@ -16,6 +16,17 @@ const routes = [
     component: () => import(/* webpackChunkName: "references" */ '../pages/references/index.vue')
   },
   {
+    path: '/motd',
+    name: 'Motd',
+    component: () => import(/* webpackChunkName: "motd" */ '../pages/motd/index.vue'),
+    children: [
+      {
+        path: ':id',
+        component: () => import(/* webpackChunkName: "motd" */ '../pages/motd/_id/index.vue'),
+      }
+    ]
+  },
+  {
     path: '/settings',
     name: 'Settings',
     component: () => import(/* webpackChunkName: "settings" */ '../pages/settings.vue')

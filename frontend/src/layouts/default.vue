@@ -16,9 +16,7 @@
 				</v-list-item>
 			</v-list>
 		</v-navigation-drawer>
-		<v-main>
-			<router-view />
-		</v-main>
+		<router-view />
 	</v-app>
 </template>
 <script>
@@ -29,24 +27,35 @@ export default {
 			{
 				key: "home",
 				to: "/",
-				icon: "mdi-home"
+				icon: "mdi-home",
 			},
 			{
 				key: "references",
 				to: "/references",
-				icon: "mdi-ruler"
+				icon: "mdi-ruler",
+			},
+			{
+				key: "motd",
+				to: "/motd",
+				icon: "mdi-monitor-share",
 			},
 			{
 				key: "settings",
 				to: "/settings",
-				icon: "mdi-cog"
+				icon: "mdi-cog",
 			},
 			{
 				key: "about",
 				to: "/about",
-				icon: "mdi-information-variant"
-			}
-		]
+				icon: "mdi-information-variant",
+			},
+		],
 	}),
+	created() {
+		this.$vuetify.application.register = function (uid, location, size) {
+			this.application[location][uid] = size;
+			this.update(location);
+		};
+	},
 };
 </script>
