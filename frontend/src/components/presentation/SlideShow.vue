@@ -40,7 +40,6 @@ export default {
 		},
 	},
 	data: () => ({
-		timeout: null,
 		current: null,
 	}),
 	computed: {
@@ -74,7 +73,6 @@ export default {
 	watch: {
 		slideCount(val) {
 			if (val == 0) {
-				this.cancel();
 				this.current = null;
 			}
 		},
@@ -99,7 +97,6 @@ export default {
 			}
 
 			this.current += offset;
-			console.log(this.current);
 
 			if (this.current >= slideCount) {
 				this.current = 0;
@@ -109,22 +106,6 @@ export default {
 		},
 		onCountdownEnd() {
 			this.next();
-		},
-		schedule() {
-			const { currentSlideDuration } = this;
-
-			this.cancel();
-
-			if (currentSlideDuration) {
-				this.timeout = setTimeout(() => this.next(), currentSlideDuration * 1000);
-			}
-		},
-		cancel() {
-			if (this.timeout != null) {
-				clearInterval(this.timeout);
-			}
-
-			this.timeout = null;
 		},
 	},
 	mounted() {

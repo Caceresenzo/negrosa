@@ -8,12 +8,11 @@
 						<v-progress-circular indeterminate />
 					</template>
 					<template v-else>
-						<h2>no active presentation</h2>
+            <v-icon size="64">mdi-bee</v-icon>
+						<h4 class="text--secondary">no active presentation</h4>
 					</template>
 				</v-col>
 			</v-row>
-			{{ presentation }}
-			{{ slides }}
 		</v-container>
 		<presentation-slide-show v-else :presentation="presentation" :slides="slides" />
 	</v-main>
