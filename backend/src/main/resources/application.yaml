@@ -8,6 +8,9 @@ server:
   error:
     include-stacktrace: always
 spring:
+  mvc:
+    async:
+      request-timeout: 120
   servlet:
     multipart:
       max-file-size: 1GB

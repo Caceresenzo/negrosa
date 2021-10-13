@@ -47,6 +47,7 @@ public class NegroSAApplication {
 				.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
 				.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
 				.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
+				.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true)
 				.registerModule(new JavaTimeModule())
 				.registerModule(new ParameterNamesModule())
 				.registerModule(new Jdk8Module())
