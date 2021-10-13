@@ -1,7 +1,14 @@
 package negrosa.motd.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +32,18 @@ public class SlideController {
 	@JsonView(Slide.Fields.Presentation.class)
 	public Slide show(@PathVariable long id) {
 		return slideService.byId(id);
+	}
+	
+	@GetMapping("{id}/image")
+	public ResponseEntity<?> showImage(@PathVariable long id) throws IOException {
+		Slide slide = slideService.byId(id);
+		
+		try (InputStream inputStream = new FileInputStream(new File(slide.getFile()))) {
+			return ResponseEntity
+					.ok()
+					.contentType(MediaType.IMAGE_PNG)
+					.body(StreamUtils.copyToByteArray(inputStream));
+		}
 	}
 	
 }
