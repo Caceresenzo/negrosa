@@ -19,13 +19,16 @@
 				<v-list-item v-for="presentation in presentations" :key="presentation.id" link :to="to(presentation)">
 					<v-list-item-content>
 						<v-list-item-title>{{ presentation.name }}</v-list-item-title>
-						<v-list-item-subtitle>{{ new Date(presentation.createdAt).toLocaleString() }}</v-list-item-subtitle>
+						<v-list-item-subtitle style="height: 18px">
+              {{ new Date(presentation.createdAt).toLocaleString() }}
+              <v-chip v-if="presentation.active" x-small color="success">active</v-chip>
+            </v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>
 		</v-navigation-drawer>
 		<v-main>
-			<router-view :key="presentationId" />
+			<router-view :key="presentationId" @hydrate="fetch" />
 		</v-main>
 	</div>
 </template>
