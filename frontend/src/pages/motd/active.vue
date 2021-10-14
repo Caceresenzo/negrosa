@@ -8,7 +8,7 @@
 						<v-progress-circular indeterminate />
 					</template>
 					<template v-else>
-            <v-icon size="64">mdi-bee</v-icon>
+						<v-icon size="64">mdi-bee</v-icon>
 						<h4 class="text--secondary">no active presentation</h4>
 					</template>
 				</v-col>
@@ -30,6 +30,7 @@ export default {
 		loading: false,
 		presentation: null,
 		slides: [],
+		interval: null,
 	}),
 	methods: {
 		async fetch() {
@@ -40,16 +41,36 @@ export default {
 			this.loading = true;
 
 			try {
-				const presentation = (await this.$http.get("/motd/presentations/active")).data;
-				const slides = (await this.$http.get(`/motd/presentations/${presentation.id}/slides`)).data;
+				const presentation = (await this.$http.get("/motd/presentations/@active")).data;
 
-				this.presentation = presentation;
-				this.slides = slides;
+				if (this.presentation?.id != presentation.id) {
+					const slides = (await this.$http.get(`/motd/presentations/${presentation.id}/slides`)).data;
+
+					this.presentation = presentation;
+					this.slides = slides;
+				}
 			} catch (error) {
-				console.log(error);
+				if (error?.response?.status == 404) {
+					this.presentation = null;
+					this.slides = [];
+				} else {
+					console.log(error);
+				}
 			}
 
 			this.loading = false;
+		},
+		schedule() {
+			this.cancel();
+
+			this.interval = setInterval(() => this.fetch(), 10_000);
+		},
+		cancel() {
+			if (this.interval != null) {
+				clearInterval(this.interval);
+			}
+
+			this.interval = null;
 		},
 	},
 	mounted() {
@@ -59,10 +80,13 @@ export default {
 		this.$store.commit("ui/setEnabled", false);
 
 		this.fetch();
+		this.schedule();
 	},
 	destroyed() {
 		this.$store.commit("ui/setDrawer", this.drawerAtOpen);
 		this.$store.commit("ui/setEnabled", true);
+
+		this.cancel();
 	},
 };
 </script>
