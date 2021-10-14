@@ -37,7 +37,7 @@ public class Presentation {
 	private boolean active;
 	
 	@Column(nullable = false)
-	private double slideDuration = 1.0;
+	private double slideDuration = 10.0;
 	
 	@CreationTimestamp
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
