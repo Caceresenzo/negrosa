@@ -1,13 +1,13 @@
 package negrosa.motd.dto.request;
 
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import lombok.Data;
 
 @Data
 public class SlideUpdateRequest {
 	
-	@Positive
+	@PositiveOrZero
 	private Double duration;
 	
 }

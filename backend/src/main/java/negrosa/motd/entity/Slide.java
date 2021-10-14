@@ -38,6 +38,14 @@ public class Slide {
 	@Column(length = 1024, nullable = false)
 	private String file;
 	
+	public void setDuration(Double duration) {
+		if (duration == 0.0d) {
+			duration = null;
+		}
+		
+		this.duration = duration;
+	}
+	
 	public static interface Fields {
 		
 		public static interface Presentation {
