@@ -7,6 +7,7 @@ import axios from '@/plugins/axios'
 import i18n from '@/plugins/i18n'
 import '@/plugins/countdown'
 import '@/plugins/vuetify-dialog'
+import '@/assets/scrollbars.scss'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

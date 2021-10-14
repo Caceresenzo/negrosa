@@ -63,6 +63,18 @@ export default {
 			return this.$store.state.ui.enabled;
 		},
 	},
+  watch: {
+    "$vuetify.theme.dark": {
+      immediate: true,
+      handler(val) {
+        const old = val ? "light" : "dark"
+        const new_ = val ? "dark" : "light"
+
+        document.documentElement.classList.remove(old)
+        document.documentElement.classList.add(new_)
+      }
+    }
+  },
 	created() {
 		this.$vuetify.application.register = function (uid, location, size) {
 			// console.log("register", [...arguments]);
