@@ -43,6 +43,14 @@ export default {
       },
     },
   },
+  motd: {
+    _: "Mot du Jour",
+    actions: {
+      open: {
+        tooltip: "Ouvrir",
+      },
+    }
+  },
   settings: {
     _: "Paramètres",
     general: {

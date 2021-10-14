@@ -13,8 +13,8 @@
 		<v-footer app class="pt-0 px-0">
 			<v-col class="pa-0">
 				<countdown v-if="currentSlide" :key="countdownKey" :time="currentSlideDuration * 1000" @end="onCountdownEnd">
-					<template slot-scope="{ seconds }">
-						<v-progress-linear :value="(1 - seconds / currentSlideDuration) * 100" />
+					<template slot-scope="{ totalSeconds }">
+						<v-progress-linear :value="(1 - totalSeconds / currentSlideDuration) * 100" />
 					</template>
 				</countdown>
 				<v-row class="ma-0 px-3 pt-2">
@@ -74,7 +74,7 @@ export default {
 				current,
 				presentation: { id },
 			} = this;
-      
+
 			return `${current}-${id}`;
 		},
 	},

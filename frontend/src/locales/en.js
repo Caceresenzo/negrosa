@@ -43,6 +43,14 @@ export default {
       },
     },
   },
+  motd: {
+    _: "Motd of the Day",
+    actions: {
+      open: {
+        tooltip: "Open",
+      },
+    }
+  },
   settings: {
     _: "Settings",
     general: {

@@ -15,6 +15,7 @@
     "vue-i18n": "^8.22.4",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.4",
+    "vuetify-dialog": "^2.0.17",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -28,7 +29,7 @@
     "deepmerge": "^4.2.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.32.7",
+    "sass": "~1.32.12",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   }

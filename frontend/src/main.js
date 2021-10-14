@@ -6,6 +6,7 @@ import vuetify from '@/plugins/vuetify'
 import axios from '@/plugins/axios'
 import i18n from '@/plugins/i18n'
 import '@/plugins/countdown'
+import '@/plugins/vuetify-dialog'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

@@ -14,21 +14,20 @@
 			</v-card-title>
 		</v-card>
 		<v-row class="mt-2">
-			<v-col v-for="slide in slides" :key="slide.id" cols="6" md="4">
-				<v-img :src="src(slide)">
-					<template #placeholder>
-						<v-row class="fill-height ma-0" align="center" justify="center">
-							<v-progress-circular indeterminate color="grey lighten-5" />
-						</v-row>
-					</template>
-				</v-img>
+			<v-col v-for="(slide, index) in slides" :key="slide.id" cols="6" md="4">
+        <presentation-slide-preview :presentation="presentation" :slide="slide" @update="(val) => $set(slides, index, val)" />
 			</v-col>
 		</v-row>
 	</v-container>
 </template>
 
 <script>
+import PresentationSlidePreview from "../../../components/presentation/SlidePreview.vue";
+
 export default {
+	components: {
+		PresentationSlidePreview,
+	},
 	data: () => ({
 		loading: false,
 		presentation: null,
@@ -65,9 +64,6 @@ export default {
 			}
 
 			this.loading = false;
-		},
-		src(slide) {
-			return `/api/motd/slides/${slide.id}/image`;
 		},
 		async toggleActive() {
 			if (this.loading) {
