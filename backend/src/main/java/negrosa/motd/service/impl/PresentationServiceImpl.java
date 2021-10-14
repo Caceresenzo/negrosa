@@ -97,6 +97,13 @@ public class PresentationServiceImpl implements PresentationService {
 		return presentation;
 	}
 	
+	@Override
+	@Transactional
+	public void delete(Presentation presentation) {
+		slideService.delete(presentation);
+		repository.delete(presentation);
+	}
+	
 	private void disableCurrentlyActives() {
 		/* should not have more than one, but just in case */
 		List<Presentation> actives = repository.findAllByActiveTrue();

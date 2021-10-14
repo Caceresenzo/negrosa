@@ -32,6 +32,10 @@ public abstract class BasePresentationController {
 		return presentationService.update(presentation, body);
 	}
 	
+	public void delete(Presentation presentation) {
+		presentationService.delete(presentation);
+	}
+	
 	public List<Slide> showSlides(Presentation presentation) {
 		return presentation.getSlides();
 	}

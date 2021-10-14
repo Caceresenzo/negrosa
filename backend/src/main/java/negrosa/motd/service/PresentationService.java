@@ -19,4 +19,6 @@ public interface PresentationService extends ByIdBaseService<Presentation> {
 	
 	Presentation update(Presentation presentation, PresentationUpdateRequest body);
 	
+	void delete(Presentation presentation);
+	
 }

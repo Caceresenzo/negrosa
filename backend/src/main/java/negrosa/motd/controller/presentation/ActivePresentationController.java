@@ -1,13 +1,14 @@
 package negrosa.motd.controller.presentation;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +32,13 @@ public class ActivePresentationController extends BasePresentationController {
 	
 	@PatchMapping
 	@JsonView(Void.class)
-	public Presentation update(@PathVariable long id, @RequestBody @Validated PresentationUpdateRequest body) {
+	public Presentation update(@RequestBody @Validated PresentationUpdateRequest body) {
 		return with((presentation) -> super.update(presentation, body));
+	}
+
+	@DeleteMapping
+	public void delete() {
+		withDo(super::delete);
 	}
 	
 	@GetMapping("slides")
@@ -45,6 +51,12 @@ public class ActivePresentationController extends BasePresentationController {
 		Presentation presentation = presentationService.byActive();
 		
 		return function.apply(presentation);
+	}
+	
+	private void withDo(Consumer<Presentation> consumer) {
+		Presentation presentation = presentationService.byActive();
+		
+		consumer.accept(presentation);
 	}
 	
 }

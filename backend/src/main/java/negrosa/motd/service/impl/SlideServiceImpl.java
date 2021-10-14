@@ -93,6 +93,7 @@ public class SlideServiceImpl implements SlideService {
 			throw throwable;
 		}
 	}
+	
 	@Override
 	public Slide update(Slide slide, SlideUpdateRequest body) {
 		boolean needSave = false;
@@ -108,6 +109,19 @@ public class SlideServiceImpl implements SlideService {
 		}
 		
 		return slide;
+	}
+	
+	@Override
+	public void delete(Presentation presentation) {
+		for (Slide slide : presentation.getSlides()) {
+			try {
+				Files.deleteIfExists(Path.of(slide.getFile()));
+			} catch (Exception exception) {
+				log.warn("Could not delete file", exception);
+			}
+			
+			repository.delete(slide);
+		}
 	}
 	
 	@Override
