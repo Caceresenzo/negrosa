@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import negrosa.motd.dto.request.SlideUpdateRequest;
 import negrosa.motd.entity.Presentation;
 import negrosa.motd.entity.Slide;
 import negrosa.motd.repository.SlideRepository;
@@ -91,6 +92,22 @@ public class SlideServiceImpl implements SlideService {
 			
 			throw throwable;
 		}
+	}
+	@Override
+	public Slide update(Slide slide, SlideUpdateRequest body) {
+		boolean needSave = false;
+		
+		if (body.getDuration() != null && slide.getDuration() != body.getDuration()) {
+			needSave = true;
+			
+			slide.setDuration(body.getDuration());
+		}
+		
+		if (needSave) {
+			return repository.save(slide);
+		}
+		
+		return slide;
 	}
 	
 	@Override
