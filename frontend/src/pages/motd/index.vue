@@ -3,6 +3,14 @@
 		<v-navigation-drawer v-model="drawer" disable-resize-watcher app clipped style="left: 256px">
 			<template #prepend>
 				<v-list-item>
+					<v-tooltip v-if="hasOneActive" right>
+						<template v-slot:activator="{ on, attrs }">
+							<v-btn icon href="/motd/active" target="_blank" v-bind="attrs" v-on="on">
+								<v-icon>mdi-open-in-new</v-icon>
+							</v-btn>
+						</template>
+						<span>{{ $t("motd.actions.see-active.tooltip") }}</span>
+					</v-tooltip>
 					<v-spacer />
 					<v-list-item-action style="flex-direction: row">
 						<presentation-button-import class="mx-1" @create="onCreate" />
@@ -54,6 +62,9 @@ export default {
 			set(val) {
 				val;
 			},
+		},
+		hasOneActive() {
+			return this.presentations.findIndex((x) => x.active) != -1;
 		},
 	},
 	methods: {

@@ -57,6 +57,9 @@ export default {
       import: {
         tooltip: "Import",
       },
+      "see-active": {
+        tooltip: "See active",
+      },
       "update-slide-duration": {
         title: "Update slide duration",
         text: "Value (in seconds) (use 0 to use default)",
