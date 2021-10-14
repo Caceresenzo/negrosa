@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -42,6 +43,10 @@ public class Presentation {
 	@CreationTimestamp
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private LocalDateTime createdAt;
+	
+	@UpdateTimestamp
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
+	private LocalDateTime updatedAt;
 	
 	@OneToMany(mappedBy = "presentation", fetch = FetchType.LAZY)
 	@JsonView(Fields.Slides.class)

@@ -3,6 +3,7 @@ package negrosa.motd.service.impl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -102,6 +103,11 @@ public class PresentationServiceImpl implements PresentationService {
 	public void delete(Presentation presentation) {
 		slideService.delete(presentation);
 		repository.delete(presentation);
+	}
+	
+	@Override
+	public Presentation touch(Presentation presentation) {
+		return repository.save(presentation.setUpdatedAt(LocalDateTime.now()));
 	}
 	
 	private void disableCurrentlyActives() {

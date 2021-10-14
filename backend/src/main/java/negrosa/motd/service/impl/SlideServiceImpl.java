@@ -27,6 +27,7 @@ import negrosa.motd.dto.request.SlideUpdateRequest;
 import negrosa.motd.entity.Presentation;
 import negrosa.motd.entity.Slide;
 import negrosa.motd.repository.SlideRepository;
+import negrosa.motd.service.PresentationService;
 import negrosa.motd.service.SlideService;
 
 @Service
@@ -39,6 +40,9 @@ public class SlideServiceImpl implements SlideService {
 	
 	@Autowired
 	private SlideRepository repository;
+	
+	@Autowired
+	private PresentationService presentationService;
 	
 	@Override
 	public Optional<Slide> findById(long id) {
@@ -105,6 +109,8 @@ public class SlideServiceImpl implements SlideService {
 		}
 		
 		if (needSave) {
+			slide.setPresentation(presentationService.touch(slide.getPresentation()));
+			
 			return repository.save(slide);
 		}
 		
