@@ -14,7 +14,7 @@
 				<v-divider />
 			</template>
 
-			<v-list dense nav>
+			<v-list dense>
 				<v-list-item v-for="presentation in presentations" :key="presentation.id" link :to="to(presentation)">
 					<v-list-item-content>
 						<v-list-item-title>{{ presentation.name }}</v-list-item-title>
