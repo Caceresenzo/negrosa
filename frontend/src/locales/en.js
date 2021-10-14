@@ -79,6 +79,13 @@ export default {
       delete: "Could not delete: {error}",
       import: "Could not import: {error}",
     },
+    success: {
+      update: "Updated",
+      delete: "Deleted",
+      activate: "Activated",
+      deactivate: "Deactivated",
+      import: "Imported"
+    },
     text: {
       "default-slide-duration": "Default Slide Duration: {value}s",
       "no-active": "no active presentation"

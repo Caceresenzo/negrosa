@@ -79,6 +79,13 @@ export default {
       delete: "Impossible de supprimer: {error}",
       import: "Impossible d'importer: {error}"
     },
+    success: {
+      update: "Mis à jour",
+      delete: "Supprimé",
+      activate: "Activé",
+      deactivate: "Désactivé",
+      import: "Importé"
+    },
     text: {
       "default-slide-duration": "Durée de la Diapositive par Défaut: {value}s",
       "no-active": "pas de présentation active"

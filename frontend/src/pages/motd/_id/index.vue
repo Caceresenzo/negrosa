@@ -121,6 +121,8 @@ export default {
 				).data;
 
 				this.$emit("hydrate", this.presentation);
+
+				this.$dialog.notify.success(this.$t("motd.success." + (this.presentation.active ? "activate" : "deactivate")));
 			} catch (error) {
 				console.log(error);
 
@@ -156,6 +158,8 @@ export default {
 				).data;
 
 				this.$emit("hydrate", this.presentation);
+
+				this.$dialog.notify.success(this.$t("motd.success.update"));
 			} catch (error) {
 				console.log(error);
 
@@ -194,6 +198,8 @@ export default {
 						slideDuration: response,
 					})
 				).data;
+
+				this.$dialog.notify.success(this.$t("motd.success.update"));
 			} catch (error) {
 				console.log(error);
 
@@ -227,6 +233,8 @@ export default {
 				this.$router.push({
 					path: "/motd/",
 				});
+
+				this.$dialog.notify.success(this.$t("motd.success.delete"));
 			} catch (error) {
 				console.log(error);
 

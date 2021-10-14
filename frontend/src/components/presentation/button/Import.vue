@@ -42,6 +42,8 @@ export default {
 				const presentation = (await this.$http.post("/motd/presentations", formData)).data;
 
 				this.$emit("create", presentation);
+        
+				this.$dialog.notify.success(this.$t("motd.success.import"));
 			} catch (error) {
 				console.log(error);
 

@@ -94,6 +94,8 @@ export default {
 				).data;
 
 				this.$emit("update", slide);
+
+				this.$dialog.notify.success(this.$t("motd.success.update"));
 			} catch (error) {
 				console.log(error);
 
