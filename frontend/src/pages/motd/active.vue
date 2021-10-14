@@ -43,7 +43,7 @@ export default {
 			try {
 				const presentation = (await this.$http.get("/motd/presentations/@active")).data;
 
-				if (this.presentation?.id != presentation.id) {
+				if (this.presentation?.id != presentation.id || this.presentation?.updatedAt != presentation.updatedAt) {
 					const slides = (await this.$http.get(`/motd/presentations/${presentation.id}/slides`)).data;
 
 					this.presentation = presentation;
