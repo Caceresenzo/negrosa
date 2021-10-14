@@ -1,21 +1,20 @@
 <template>
 	<div>
 		<v-navigation-drawer v-model="drawer" disable-resize-watcher app clipped style="left: 256px">
-			<v-list dense nav>
+			<template #prepend>
 				<v-list-item>
-					<v-list-item-content>
-						<v-list-item-title>Presentations</v-list-item-title>
-					</v-list-item-content>
-					<v-list-item-action class="my-0" style="flex-direction: row">
-						<v-btn icon class="mx-2">
-							<v-icon>mdi-plus</v-icon>
-						</v-btn>
+					<v-spacer />
+					<v-list-item-action style="flex-direction: row">
+						<presentation-button-import class="mx-1" @create="onCreate" />
 						<v-btn icon :loading="loading" @click="fetch">
 							<v-icon>mdi-refresh</v-icon>
 						</v-btn>
 					</v-list-item-action>
 				</v-list-item>
 				<v-divider />
+			</template>
+
+			<v-list dense nav>
 				<v-list-item v-for="presentation in presentations" :key="presentation.id" link :to="to(presentation)">
 					<v-list-item-content>
 						<v-list-item-title>{{ presentation.name }}</v-list-item-title>
@@ -34,7 +33,12 @@
 </template>
 
 <script>
+import PresentationButtonImport from "../../components/presentation/button/Import.vue";
+
 export default {
+	components: {
+		PresentationButtonImport,
+	},
 	data: () => ({
 		loading: false,
 		presentations: [],
@@ -47,9 +51,9 @@ export default {
 			get() {
 				return this.$store.state.ui.drawer;
 			},
-      set(val) {
-        val;
-      }
+			set(val) {
+				val;
+			},
 		},
 	},
 	methods: {
@@ -74,6 +78,13 @@ export default {
 		},
 		to(presentation) {
 			return `/motd/${presentation.id}`;
+		},
+		onCreate(presentation) {
+			this.presentations.unshift(presentation);
+
+			this.$router.push({
+				path: `/motd/${presentation.id}`,
+			});
 		},
 	},
 	mounted() {
