@@ -3,22 +3,16 @@ package negrosa.motd.service.impl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import lombok.extern.slf4j.Slf4j;
 import negrosa.backend.exception.EntityNotFoundException;
 import negrosa.motd.dto.request.PresentationUpdateRequest;
 import negrosa.motd.entity.Presentation;
@@ -28,22 +22,16 @@ import negrosa.motd.service.PresentationService;
 import negrosa.motd.service.SlideService;
 
 @Service
-@Slf4j
-public class PresentationServiceImpl implements PresentationService, DisposableBean {
+public class PresentationServiceImpl implements PresentationService {
 	
 	public static final String ENTITY = "presentation";
 	public static final String FIELD_ACTIVE = "active";
-	
-	public static final long EMITTER_TIMEOUT = Duration.ofMinutes(2).toSeconds();
-	public static final String EVENT_NOTIFY_UPDATE = "notify_presentation_update";
 	
 	@Autowired
 	private PresentationRepository repository;
 	
 	@Autowired
 	private SlideService slideService;
-	
-	private List<SseEmitter> emitters = Collections.synchronizedList(new ArrayList<>(1));
 	
 	@Override
 	public Optional<Presentation> findById(long id) {
@@ -91,8 +79,6 @@ public class PresentationServiceImpl implements PresentationService, DisposableB
 			boolean newValue = body.getActive();
 			if (newValue) {
 				disableCurrentlyActives();
-			} else {
-				notifyNoActive();
 			}
 			
 			presentation.setActive(newValue);
@@ -105,28 +91,10 @@ public class PresentationServiceImpl implements PresentationService, DisposableB
 		}
 		
 		if (needSave) {
-			if (presentation.isActive()) {
-				notifyActive(presentation);
-			}
-			
 			return repository.save(presentation);
 		}
 		
 		return presentation;
-	}
-	
-	@Override
-	public SseEmitter newSseEmitter() {
-		SseEmitter emitter = new SseEmitter();
-		
-		emitters.add(emitter);
-		System.out.println(emitter);
-		emitter.onCompletion(() -> {
-			emitters.remove(emitter);
-			System.err.println(emitter);
-		});
-		
-		return emitter;
 	}
 	
 	private void disableCurrentlyActives() {
@@ -136,44 +104,6 @@ public class PresentationServiceImpl implements PresentationService, DisposableB
 		actives.forEach((presentation) -> presentation.setActive(false));
 		
 		repository.saveAll(actives);
-	}
-	
-	private void notifyActive(Presentation presentation) {
-		log.info("Active presentation updated");
-		
-		notifyPresentationUpdate(presentation.getId());
-	}
-	
-	private void notifyNoActive() {
-		log.info("No active presentation");
-		
-		notifyPresentationUpdate(-1);
-	}
-	
-	private void notifyPresentationUpdate(long id) {
-		sendToEmitters(SseEmitter.event()
-				.name(EVENT_NOTIFY_UPDATE)
-				.data(id));
-	}
-	
-	private void sendToEmitters(SseEmitter.SseEventBuilder event) {
-		List<SseEmitter> failedEmitters = new ArrayList<>();
-		
-		emitters.forEach((emitter) -> {
-			try {
-				emitter.send(event);
-			} catch (IOException exception) {
-				log.warn("Could not send message", exception);
-				failedEmitters.add(emitter);
-			}
-		});
-		
-		emitters.removeAll(failedEmitters);
-	}
-	
-	@Override
-	public void destroy() throws Exception {
-		emitters.forEach(SseEmitter::complete);
 	}
 	
 	@Override
