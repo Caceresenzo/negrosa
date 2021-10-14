@@ -63,10 +63,10 @@ export default {
 
 			const value = await this.$dialog.prompt({
 				title: "Update slide duration",
-				text: "Value (in seconds)",
+				text: "Value (in seconds) (use 0 to use default)",
 				value: `${duration || slideDuration}`,
 				textField: {
-					min: 1,
+					min: 0,
 					step: 0.5,
 					type: "number",
 				},

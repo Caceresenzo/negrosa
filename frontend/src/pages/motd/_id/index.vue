@@ -2,7 +2,20 @@
 	<v-container>
 		<v-card :loading="loading">
 			<v-card-title>
-				{{ title }}
+				<v-hover close-delay="100" v-slot="{ hover }">
+					<div>
+						{{ title }}
+						<v-btn
+							icon
+							:style="{
+								visibility: hover ? 'visible' : 'hidden',
+							}"
+							@click="promptNameUpdate"
+						>
+							<v-icon>mdi-pencil</v-icon>
+						</v-btn>
+					</div>
+				</v-hover>
 				<v-spacer />
 				<template v-if="presentation">
 					<v-btn icon :disabled="loading" @click="toggleActive" class="mx-1">
@@ -17,6 +30,26 @@
 					<v-icon>mdi-refresh</v-icon>
 				</v-btn>
 			</v-card-title>
+			<template v-if="presentation">
+				<v-card-subtitle>{{ new Date(presentation.createdAt).toLocaleString() }}</v-card-subtitle>
+				<v-card-text>
+					<v-hover close-delay="100" v-slot="{ hover }">
+						<div>
+							Default Slide Durations: {{ presentation.slideDuration }}s
+							<v-btn
+								small
+								icon
+								:style="{
+									visibility: hover ? 'visible' : 'hidden',
+								}"
+								@click="promptDurationUpdate"
+							>
+								<v-icon>mdi-pencil</v-icon>
+							</v-btn>
+						</div>
+					</v-hover>
+				</v-card-text>
+			</template>
 		</v-card>
 		<v-row class="mt-2">
 			<v-col v-for="(slide, index) in slides" :key="slide.id" cols="6" md="4">
@@ -87,6 +120,77 @@ export default {
 				).data;
 
 				this.$emit("hydrate", this.presentation);
+			} catch (error) {
+				console.log(error);
+				alert(`Could not update`);
+			}
+
+			this.loading = false;
+		},
+		async promptNameUpdate() {
+			const { presentation } = this;
+
+			const response = await this.$dialog.prompt({
+				title: "Update name",
+				text: "New name",
+				value: presentation.name,
+			});
+
+			if (response == null) {
+				return;
+			}
+
+			if (this.loading) {
+				return;
+			}
+
+			this.loading = true;
+
+			try {
+				this.presentation = (
+					await this.$http.patch(`/motd/presentations/${presentation.id}`, {
+						name: response,
+					})
+				).data;
+
+				this.$emit("hydrate", this.presentation);
+			} catch (error) {
+				console.log(error);
+				alert(`Could not update`);
+			}
+
+			this.loading = false;
+		},
+		async promptDurationUpdate() {
+			const { presentation } = this;
+
+			const response = await this.$dialog.prompt({
+				title: "Update default slide duration",
+				text: "Value (in seconds)",
+				value: `${presentation.slideDuration}`,
+				textField: {
+					min: 1,
+					step: 0.5,
+					type: "number",
+				},
+			});
+
+			if (response == null) {
+				return;
+			}
+
+			if (this.loading) {
+				return;
+			}
+
+			this.loading = true;
+
+			try {
+				this.presentation = (
+					await this.$http.patch(`/motd/presentations/${presentation.id}`, {
+						slideDuration: response,
+					})
+				).data;
 			} catch (error) {
 				console.log(error);
 				alert(`Could not update`);
