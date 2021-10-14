@@ -61,6 +61,7 @@ export default {
         tooltip: "Voir l'actif",
       },
       "update-slide-duration": {
+        tooltip: "Modifier la durée",
         title: "Mettre à jour la durée",
         text: "Valeur (en secondes) (utilisez 0 pour utiliser la valeur par défaut)",
       },

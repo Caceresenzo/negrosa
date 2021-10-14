@@ -61,6 +61,7 @@ export default {
         tooltip: "See active",
       },
       "update-slide-duration": {
+        tooltip: "Edit duration",
         title: "Update slide duration",
         text: "Value (in seconds) (use 0 to use default)",
       },

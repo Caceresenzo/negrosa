@@ -26,7 +26,7 @@
 								<v-icon>mdi-pencil</v-icon>
 							</v-btn>
 						</template>
-						<span>{{ $t("motd.actions.delete.tooltip") }}</span>
+						<span>{{ $t("motd.actions.update-slide-duration.tooltip") }}</span>
 					</v-tooltip>
 				</div>
 			</v-expand-transition>
