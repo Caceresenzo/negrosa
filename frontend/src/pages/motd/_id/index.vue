@@ -138,7 +138,7 @@ export default {
 				value: presentation.name,
 			});
 
-			if (response == null || response == false) {
+			if (response === null || response === false) {
 				return;
 			}
 
@@ -178,7 +178,7 @@ export default {
 				},
 			});
 
-			if (response == null || response == false) {
+			if (response === null || response === false) {
 				return;
 			}
 

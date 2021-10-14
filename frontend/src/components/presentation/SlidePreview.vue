@@ -72,33 +72,35 @@ export default {
 				},
 			});
 
-			if (value != null) {
-				if (this.loading) {
-					return;
-				}
-
-				this.loading = true;
-
-				try {
-					const {
-						slide: { id },
-					} = this;
-
-					const slide = (
-						await this.$http.patch(`/motd/slides/${id}`, {
-							duration: value,
-						})
-					).data;
-
-					this.$emit("update", slide);
-				} catch (error) {
-					console.log(error);
-
-					this.$dialog.notify.error(this.$t("motd.error.update", { error }));
-				}
-
-				this.loading = false;
+			if (value === null || value === false) {
+				return;
 			}
+
+			if (this.loading) {
+				return;
+			}
+
+			this.loading = true;
+
+			try {
+				const {
+					slide: { id },
+				} = this;
+
+				const slide = (
+					await this.$http.patch(`/motd/slides/${id}`, {
+						duration: value,
+					})
+				).data;
+
+				this.$emit("update", slide);
+			} catch (error) {
+				console.log(error);
+
+				this.$dialog.notify.error(this.$t("motd.error.update", { error }));
+			}
+
+			this.loading = false;
 		},
 	},
 };
