@@ -4,12 +4,11 @@
 			<v-row class="fill-height" align="center">
 				<v-col align="center">
 					<template v-if="loading">
-						<h2>loading...</h2>
 						<v-progress-circular indeterminate />
 					</template>
 					<template v-else>
 						<v-icon size="64">mdi-bee</v-icon>
-						<h4 class="text--secondary">no active presentation</h4>
+						<h4 class="text--secondary">{{ $t("motd.text.no-active") }}</h4>
 					</template>
 				</v-col>
 			</v-row>

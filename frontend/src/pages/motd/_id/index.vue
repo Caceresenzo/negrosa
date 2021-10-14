@@ -35,7 +35,7 @@
 				<v-card-text>
 					<v-hover close-delay="100" v-slot="{ hover }">
 						<div>
-							Default Slide Durations: {{ presentation.slideDuration }}s
+							{{ $t("motd.text.default-slide-duration", { value: presentation.slideDuration }) }}
 							<v-btn
 								small
 								icon
@@ -98,7 +98,8 @@ export default {
 				this.slides = slides;
 			} catch (error) {
 				console.log(error);
-				alert(`Could not fetch`);
+
+				this.$dialog.notify.error(this.$t("motd.error.fetch", { error }));
 			}
 
 			this.loading = false;
@@ -122,7 +123,8 @@ export default {
 				this.$emit("hydrate", this.presentation);
 			} catch (error) {
 				console.log(error);
-				alert(`Could not update`);
+
+				this.$dialog.notify.error(this.$t("motd.error.update", { error }));
 			}
 
 			this.loading = false;
@@ -131,8 +133,8 @@ export default {
 			const { presentation } = this;
 
 			const response = await this.$dialog.prompt({
-				title: "Update name",
-				text: "New name",
+				title: this.$t("motd.actions.update-name.title"),
+				text: this.$t("motd.actions.update-name.text"),
 				value: presentation.name,
 			});
 
@@ -156,7 +158,8 @@ export default {
 				this.$emit("hydrate", this.presentation);
 			} catch (error) {
 				console.log(error);
-				alert(`Could not update`);
+
+				this.$dialog.notify.error(this.$t("motd.error.update", { error }));
 			}
 
 			this.loading = false;
@@ -165,8 +168,8 @@ export default {
 			const { presentation } = this;
 
 			const response = await this.$dialog.prompt({
-				title: "Update default slide duration",
-				text: "Value (in seconds)",
+				title: this.$t("motd.actions.update-duration.title"),
+				text: this.$t("motd.actions.update-duration.text"),
 				value: `${presentation.slideDuration}`,
 				textField: {
 					min: 1,
@@ -193,15 +196,16 @@ export default {
 				).data;
 			} catch (error) {
 				console.log(error);
-				alert(`Could not update`);
+
+				this.$dialog.notify.error(this.$t("motd.error.update", { error }));
 			}
 
 			this.loading = false;
 		},
 		async promptDelete() {
 			const response = await this.$dialog.confirm({
-				title: "Deletion confirmation",
-				text: "Are you sure you want to delete this presentation?",
+				title: this.$t("motd.actions.delete.title"),
+				text: this.$t("motd.actions.delete.text"),
 			});
 
 			if (!response) {
@@ -225,7 +229,8 @@ export default {
 				});
 			} catch (error) {
 				console.log(error);
-				alert(`Could not delete`);
+
+				this.$dialog.notify.error(this.$t("motd.error.delete", { error }));
 			}
 
 			this.loading = false;

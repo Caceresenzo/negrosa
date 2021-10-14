@@ -26,7 +26,7 @@
 								<v-icon>mdi-pencil</v-icon>
 							</v-btn>
 						</template>
-						<span>{{ $t("references.actions.delete.tooltip") }}</span>
+						<span>{{ $t("motd.actions.delete.tooltip") }}</span>
 					</v-tooltip>
 				</div>
 			</v-expand-transition>
@@ -62,8 +62,8 @@ export default {
 			} = this;
 
 			const value = await this.$dialog.prompt({
-				title: "Update slide duration",
-				text: "Value (in seconds) (use 0 to use default)",
+				title: this.$t("motd.actions.update-slide-duration.title"),
+				text: this.$t("motd.actions.update-slide-duration.text"),
 				value: `${duration || slideDuration}`,
 				textField: {
 					min: 0,
@@ -93,7 +93,8 @@ export default {
 					this.$emit("update", slide);
 				} catch (error) {
 					console.log(error);
-					alert(`Could not update`);
+
+					this.$dialog.notify.error(this.$t("motd.error.update", { error }));
 				}
 
 				this.loading = false;

@@ -49,7 +49,40 @@ export default {
       open: {
         tooltip: "Open",
       },
-    }
+      delete: {
+        tooltip: "Delete",
+        title: "Deletion confirmation",
+        text: "Are you sure you want to delete this?",
+      },
+      import: {
+        tooltip: "Import",
+      },
+      "update-slide-duration": {
+        title: "Update slide duration",
+        text: "Value (in seconds) (use 0 to use default)",
+      },
+      "update-name": {
+        title: "Update name",
+        text: "New name",
+      },
+      "update-duration": {
+        title: "Update default slide duration",
+        text: "Value (in seconds)",
+      },
+    },
+    state: {
+      active: "active",
+    },
+    error: {
+      fetch: "Could not fetch: {error}",
+      update: "Could not update: {error}",
+      delete: "Could not delete: {error}",
+      import: "Could not import: {error}",
+    },
+    text: {
+      "default-slide-duration": "Default Slide Duration: {value}s",
+      "no-active": "no active presentation"
+    },
   },
   settings: {
     _: "Settings",

@@ -1,15 +1,21 @@
 <template>
-	<v-btn :loading="loading" icon @click="prompt">
-		<v-icon>mdi-plus</v-icon>
+	<div style="display: unset">
+		<v-tooltip left>
+			<template v-slot:activator="{ on, attrs }">
+				<v-btn :loading="loading" icon v-bind="attrs" v-on="on" @click="prompt">
+					<v-icon>mdi-plus</v-icon>
+				</v-btn>
+			</template>
+			<span>{{ $t('motd.actions.import.tooltip') }}</span>
+		</v-tooltip>
 		<input ref="file" type="file" style="display: none" @change="onChange" />
-	</v-btn>
+	</div>
 </template>
 
 <script>
 export default {
 	data: () => ({
 		loading: false,
-		file: null,
 	}),
 	methods: {
 		prompt() {
@@ -38,16 +44,11 @@ export default {
 				this.$emit("create", presentation);
 			} catch (error) {
 				console.log(error);
-				alert("Could not create");
+
+				this.$dialog.notify.error(this.$t("motd.error.import", { error }));
 			}
 
 			this.loading = false;
-			console.log(file);
-		},
-	},
-	watch: {
-		file(val) {
-			console.log(val);
 		},
 	},
 };

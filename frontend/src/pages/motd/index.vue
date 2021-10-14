@@ -20,7 +20,7 @@
 						<v-list-item-title>{{ presentation.name }}</v-list-item-title>
 						<v-list-item-subtitle style="height: 18px">
 							{{ new Date(presentation.createdAt).toLocaleString() }}
-							<v-chip v-if="presentation.active" x-small color="success">active</v-chip>
+							<v-chip v-if="presentation.active" x-small color="success">{{ $t("motd.state.active") }}</v-chip>
 						</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
@@ -71,7 +71,8 @@ export default {
 				this.presentations = presentation;
 			} catch (error) {
 				console.log(error);
-				alert(`Could not fetch`);
+
+				this.$dialog.notify.error(this.$t("motd.error.fetch", { error }));
 			}
 
 			this.loading = false;
@@ -83,7 +84,7 @@ export default {
 			this.presentations.unshift(presentation);
 
 			this.$router.push({
-				path: `/motd/${presentation.id}`,
+				path: this.to(presentation),
 			});
 		},
 	},
