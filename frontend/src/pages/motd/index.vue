@@ -28,7 +28,7 @@
 			</v-list>
 		</v-navigation-drawer>
 		<v-main>
-			<router-view :key="presentationId" @hydrate="fetch" />
+			<router-view :key="presentationId" @hydrate="fetch" @delete="fetch" />
 		</v-main>
 	</div>
 </template>

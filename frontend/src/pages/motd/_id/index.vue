@@ -4,10 +4,15 @@
 			<v-card-title>
 				{{ title }}
 				<v-spacer />
-				<v-btn v-if="presentation" icon :disabled="loading" @click="toggleActive" class="mx-2">
-					<v-icon v-if="presentation.active">mdi-power</v-icon>
-					<v-icon v-else>mdi-cloud-upload</v-icon>
-				</v-btn>
+				<template v-if="presentation">
+					<v-btn icon :disabled="loading" @click="toggleActive" class="mx-1">
+						<v-icon v-if="presentation.active">mdi-power</v-icon>
+						<v-icon v-else>mdi-cloud-upload</v-icon>
+					</v-btn>
+					<v-btn icon :disabled="loading" @click="promptDelete" class="mx-1">
+						<v-icon>mdi-delete</v-icon>
+					</v-btn>
+				</template>
 				<v-btn icon :loading="loading" @click="fetch">
 					<v-icon>mdi-refresh</v-icon>
 				</v-btn>
@@ -15,7 +20,7 @@
 		</v-card>
 		<v-row class="mt-2">
 			<v-col v-for="(slide, index) in slides" :key="slide.id" cols="6" md="4">
-        <presentation-slide-preview :presentation="presentation" :slide="slide" @update="(val) => $set(slides, index, val)" />
+				<presentation-slide-preview :presentation="presentation" :slide="slide" @update="(val) => $set(slides, index, val)" />
 			</v-col>
 		</v-row>
 	</v-container>
@@ -85,6 +90,38 @@ export default {
 			} catch (error) {
 				console.log(error);
 				alert(`Could not update`);
+			}
+
+			this.loading = false;
+		},
+		async promptDelete() {
+			const response = await this.$dialog.confirm({
+				title: "Deletion confirmation",
+				text: "Are you sure you want to delete this presentation?",
+			});
+
+			if (!response) {
+				return;
+			}
+
+			if (this.loading) {
+				return;
+			}
+
+			this.loading = true;
+
+			try {
+				const { presentation } = this;
+
+				await this.$http.delete(`/motd/presentations/${presentation.id}`);
+
+				this.$emit("delete", presentation);
+				this.$router.push({
+					path: "/motd/",
+				});
+			} catch (error) {
+				console.log(error);
+				alert(`Could not delete`);
 			}
 
 			this.loading = false;
