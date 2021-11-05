@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+   mysql:
+     image: mysql:5.7
+     volumes:
+       - ./data/mysql:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: password
+       MYSQL_ROOT_HOST: '%'
+   backend:
+     depends_on:
+       - mysql
+     build: ./backend/
+     restart: always
+     environment:
+       DATABASE_HOST: mysql
+   frontend:
+     build: ./frontend/
+     restart: always
+     environment:
+       DATABASE_HOST: mysql
+   gateway:
+     build: ./gateway/
+     restart: always
+     ports:
+       - "80:80"
