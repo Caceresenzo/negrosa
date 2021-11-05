@@ -1,0 +1,1 @@
+docker build -t negrosa-base -f docker/Dockerfile.base .
