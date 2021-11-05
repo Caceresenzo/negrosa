@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Negro SA MOTD
+Comment=
+Exec=chromium-browser --start-fullscreen -kiosk --app=http://192.168.1.10/motd/active
+StartupNotify=false
+Terminal=true
+Hidden=false

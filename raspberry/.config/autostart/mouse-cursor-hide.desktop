@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Mouse Cursor Hide
+Comment=
+Exec=sudo unclutter -idle 10
+StartupNotify=false
+Terminal=true
+Hidden=true
