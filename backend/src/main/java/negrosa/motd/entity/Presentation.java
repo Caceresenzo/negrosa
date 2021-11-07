@@ -48,7 +48,7 @@ public class Presentation {
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private LocalDateTime updatedAt;
 	
-	@OneToMany(mappedBy = "presentation", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "presentation", fetch = FetchType.LAZY, orphanRemoval = true)
 	@JsonView(Fields.Slides.class)
 	private List<Slide> slides;
 	
