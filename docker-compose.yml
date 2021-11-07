@@ -8,6 +8,16 @@ services:
      environment:
        MYSQL_ROOT_PASSWORD: password
        MYSQL_ROOT_HOST: '%'
+   phpmyadmin:
+     depends_on:
+       - mysql
+     image: phpmyadmin
+     restart: always
+     environment:
+       PMA_HOST: mysql
+       PMA_USER: root
+       PMA_PASSWORD: password
+       PMA_ABSOLUTE_URI: /phpmyadmin/
    backend:
      depends_on:
        - mysql
